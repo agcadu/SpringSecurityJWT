@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-public class PrincipalController {
+public class UsersController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -23,15 +23,7 @@ public class PrincipalController {
     @Autowired
     private IUserRepository userRepository;
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello World Not Security";
-    }
 
-    @GetMapping("/helloSecured")
-    public String helloSecured() {
-        return "Hello World Security";
-    }
 
     @PostMapping("/createUser")
     public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserDTO createUserDTO) {

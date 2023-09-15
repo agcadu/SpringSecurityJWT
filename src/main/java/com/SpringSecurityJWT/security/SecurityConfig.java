@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,9 +38,10 @@ public class SecurityConfig {
                 .csrf(config -> config.disable())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/hello").permitAll();
-                    auth.requestMatchers("/accesAdmin").hasRole("ADMIN");
-                    auth.requestMatchers("/accesUser").hasAnyRole("ADMIN", "USER");
-                    auth.requestMatchers("/accesInvited").hasAnyRole("ADMIN", "INVITED");
+                    auth.requestMatchers("/createUser").hasRole("ADMIN");
+                    auth.requestMatchers("/deleteUser").hasRole("ADMIN");
+                    auth.requestMatchers("/persons").hasAnyRole("ADMIN", "USER", "INVITED");
+                    auth.requestMatchers("/savePerson").hasAnyRole("ADMIN", "USER");
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
