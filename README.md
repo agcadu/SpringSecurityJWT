@@ -1,3 +1,4 @@
+![Encabezado del Proyecto](./header.png)
 
 # SpringSecurityJWT
 
