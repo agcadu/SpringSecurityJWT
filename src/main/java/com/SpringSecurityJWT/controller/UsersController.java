@@ -1,6 +1,7 @@
 package com.SpringSecurityJWT.controller;
 
 import com.SpringSecurityJWT.controller.request.CreateUserDTO;
+import com.SpringSecurityJWT.controller.request.UserResponseDTO;
 import com.SpringSecurityJWT.models.ERole;
 import com.SpringSecurityJWT.models.RoleEntity;
 import com.SpringSecurityJWT.models.UserEntity;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,6 +25,17 @@ public class UsersController {
     @Autowired
     private IUserRepository userRepository;
 
+
+    @GetMapping("/users")
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
+        List<UserEntity> userEntities = (List<UserEntity>) userRepository.findAll();
+
+        List<UserResponseDTO> userDTOs = userEntities.stream()
+                .map(userEntity -> new UserResponseDTO().toDTO(userEntity))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(userDTOs);
+    }
 
 
     @PostMapping("/createUser")

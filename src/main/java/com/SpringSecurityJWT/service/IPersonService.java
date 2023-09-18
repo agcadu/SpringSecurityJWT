@@ -9,4 +9,6 @@ public interface IPersonService {
     public ResponseEntity<PersonResponseRest> search();
 
     public ResponseEntity<PersonResponseRest> save(PersonEntity person);
+
+    public ResponseEntity<PersonResponseRest> deleteById(Long id);
 }

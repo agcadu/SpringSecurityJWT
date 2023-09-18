@@ -29,7 +29,7 @@ public class PersonServiceImpl implements IPersonService{
             List<PersonEntity> person = (List<PersonEntity>) personRepository.findAll();
 
             response.getPersonResponse().setPerson(person);
-            response.setMetadata("successful response", "00", "successful response");
+            response.setMetadata("successful response", "00", "data found");
 
         } catch (Exception e) {
 
@@ -57,7 +57,7 @@ public class PersonServiceImpl implements IPersonService{
                 list.add(personEntity);
 
                 response.getPersonResponse().setPerson(list);
-                response.setMetadata("successful response", "00", "successful response");
+                response.setMetadata("successful response", "00", "Save successful");
                 }else {
                     response.setMetadata("unsuccessful response", "-1", "Error save");
                     return new ResponseEntity<PersonResponseRest>( response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -71,6 +71,23 @@ public class PersonServiceImpl implements IPersonService{
 
         }
 
+        return new ResponseEntity<PersonResponseRest>(response, HttpStatus.OK);
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<PersonResponseRest> deleteById(Long id) {
+        PersonResponseRest response = new PersonResponseRest();
+
+        try {
+            personRepository.deleteById(id);
+            response.setMetadata("successful response", "00", "Delete successful");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setMetadata("unsuccessful response", "-1", "Error delete");
+            return new ResponseEntity<PersonResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         return new ResponseEntity<PersonResponseRest>(response, HttpStatus.OK);
     }
 }

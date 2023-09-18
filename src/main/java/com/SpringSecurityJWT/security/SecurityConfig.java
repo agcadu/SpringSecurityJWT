@@ -38,10 +38,12 @@ public class SecurityConfig {
                 .csrf(config -> config.disable())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/hello").permitAll();
+                    auth.requestMatchers("/users").hasRole("ADMIN");
                     auth.requestMatchers("/createUser").hasRole("ADMIN");
                     auth.requestMatchers("/deleteUser").hasRole("ADMIN");
                     auth.requestMatchers("/persons").hasAnyRole("ADMIN", "USER", "INVITED");
                     auth.requestMatchers("/savePerson").hasAnyRole("ADMIN", "USER");
+                    auth.requestMatchers("/deletePerson").hasAnyRole("ADMIN", "USER");
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

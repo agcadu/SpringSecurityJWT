@@ -5,10 +5,7 @@ import com.SpringSecurityJWT.response.PersonResponseRest;
 import com.SpringSecurityJWT.service.IPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class PersonController {
@@ -33,6 +30,13 @@ public class PersonController {
     public ResponseEntity<PersonResponseRest> save(@RequestBody PersonEntity person){
 
         ResponseEntity<PersonResponseRest> response = personService.save(person);
+        return response;
+    }
+
+    @DeleteMapping("/deletePerson")
+    public ResponseEntity<PersonResponseRest> deleteById(@RequestParam Long id){
+
+        ResponseEntity<PersonResponseRest> response = personService.deleteById(id);
         return response;
     }
 }
