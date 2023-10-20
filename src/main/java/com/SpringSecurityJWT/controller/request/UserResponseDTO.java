@@ -15,15 +15,6 @@ public class UserResponseDTO {
     private Set<RoleEntity> roles;
 
 
-    public UserResponseDTO toDTO(UserEntity userEntity) {
-        UserResponseDTO dto = new UserResponseDTO();
-        dto.setId(userEntity.getId());
-        dto.setEmail(userEntity.getEmail());
-        dto.setUsername(userEntity.getUsername());
-        dto.setRoles(userEntity.getRoles());
-        return dto;
-    }
-
 }
 
 

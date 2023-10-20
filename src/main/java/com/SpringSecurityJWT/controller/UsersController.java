@@ -2,6 +2,7 @@ package com.SpringSecurityJWT.controller;
 
 import com.SpringSecurityJWT.controller.request.CreateUserDTO;
 import com.SpringSecurityJWT.controller.request.UserResponseDTO;
+import com.SpringSecurityJWT.mapper.UserMapper;
 import com.SpringSecurityJWT.models.ERole;
 import com.SpringSecurityJWT.models.RoleEntity;
 import com.SpringSecurityJWT.models.UserEntity;
@@ -31,7 +32,7 @@ public class UsersController {
         List<UserEntity> userEntities = (List<UserEntity>) userRepository.findAll();
 
         List<UserResponseDTO> userDTOs = userEntities.stream()
-                .map(userEntity -> new UserResponseDTO().toDTO(userEntity))
+                .map(userEntity -> new UserMapper().toDTO(userEntity))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(userDTOs);
